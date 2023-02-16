@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Dashboard" icon="ADDRESS_CARD">
+    <data>
+        <collection id="studentsDc" class="com.enrollment.entity.Student">
+            <fetchPlan extends="_base"/>
+            <loader id="studentsDl">
+                <query>
+                    <![CDATA[select e from Student e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="instructorsDc" class="com.enrollment.entity.Instructor">
+            <fetchPlan extends="_base"/>
+            <loader id="instructorsDl">
+                <query>
+                    <![CDATA[select e from Instructor e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <hbox spacing="true">
+            <vbox spacing="true">
+                <label id="Students" value="Students" align="TOP_CENTER"/>
+                <table id="studentsTable" height="300px" width="500px" dataContainer="studentsDc">
+                    <columns>
+                        <column id="name"/>
+                        <column id="email"/>
+                        <column id="mobile"/>
+                    </columns>
+                </table>
+            </vbox>
+
+            <vbox spacing="true">
+                <label id="Instructors" value="Instructors" align="TOP_CENTER"/>
+                <table id="instructorsTable" height="300px" width="400px" dataContainer="instructorsDc">
+                    <columns>
+                        <column id="name"/>
+                        <column id="joiningDate"/>
+                    </columns>
+                </table>
+            </vbox>
+        </hbox>
+    </layout>
+</window>
