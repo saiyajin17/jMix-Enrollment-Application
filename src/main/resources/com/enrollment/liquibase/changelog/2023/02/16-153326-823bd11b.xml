@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Enrollment">
+        <createTable tableName="ENROLMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENROLMENT"/>
+            </column>
+            <column name="STUDENT_ID" type="UUID"/>
+            <column name="SUBJECT_ID" type="UUID"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Enrollment">
+        <createTable tableName="INSTRUCTOR">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INSTRUCTOR"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="JOINING_DATE" type="DATE"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Enrollment">
+        <createTable tableName="SCHOOL">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SCHOOL"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Enrollment">
+        <createTable tableName="STUDENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STUDENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="MOBILE" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="Enrollment">
+        <createTable tableName="SUBJECT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUBJECT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="Enrollment">
+        <createTable tableName="SUBJECT_INSTRUCTOR_LINK">
+            <column name="INSTRUCTOR_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUBJECT_INSTRUCTOR_LINK"/>
+            </column>
+            <column name="SUBJECT_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SUBJECT_INSTRUCTOR_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="Enrollment">
+        <createIndex indexName="IDX_ENROLMENT_STUDENT" tableName="ENROLMENT">
+            <column name="STUDENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="STUDENT_ID" baseTableName="ENROLMENT"
+                                 constraintName="FK_ENROLMENT_ON_STUDENT" referencedColumnNames="ID"
+                                 referencedTableName="STUDENT"/>
+    </changeSet>
+    <changeSet id="8" author="Enrollment">
+        <createIndex indexName="IDX_ENROLMENT_SUBJECT" tableName="ENROLMENT">
+            <column name="SUBJECT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SUBJECT_ID" baseTableName="ENROLMENT"
+                                 constraintName="FK_ENROLMENT_ON_SUBJECT" referencedColumnNames="ID"
+                                 referencedTableName="SUBJECT"/>
+    </changeSet>
+    <changeSet id="9" author="Enrollment">
+        <addForeignKeyConstraint baseColumnNames="INSTRUCTOR_ID" baseTableName="SUBJECT_INSTRUCTOR_LINK"
+                                 constraintName="FK_SUBINS_ON_INSTRUCTOR" referencedColumnNames="ID"
+                                 referencedTableName="INSTRUCTOR"/>
+    </changeSet>
+    <changeSet id="10" author="Enrollment">
+        <addForeignKeyConstraint baseColumnNames="SUBJECT_ID" baseTableName="SUBJECT_INSTRUCTOR_LINK"
+                                 constraintName="FK_SUBINS_ON_SUBJECT" referencedColumnNames="ID"
+                                 referencedTableName="SUBJECT"/>
+    </changeSet>
+</databaseChangeLog>

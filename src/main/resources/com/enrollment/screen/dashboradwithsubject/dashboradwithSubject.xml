@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Dashboard2" icon="BOOK">
+    <data>
+        <collection id="studentsDc" class="com.enrollment.entity.Student">
+            <fetchPlan extends="_base"/>
+            <loader id="studentsDl">
+                <query>
+                    <![CDATA[select e from Student e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="subjectsDc" class="com.enrollment.entity.Subject">
+            <fetchPlan extends="_base"/>
+            <loader id="subjectsDl">
+                <query>
+                    <![CDATA[select e from Subject e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <hbox spacing="true">
+            <vbox spacing="true">
+                <label id="students" value="Students" align="TOP_CENTER"/>
+                <table id="studentsTable" height="400px" width="500px" dataContainer="studentsDc">
+                    <columns>
+                        <column id="name"/>
+                        <column id="email"/>
+                        <column id="mobile"/>
+                    </columns>
+                </table>
+            </vbox>
+            <vbox spacing="true">
+                <label id="subjects" align="TOP_CENTER" value="Subjects"/>
+                <table id="subjectsTable" height="400px" width="500px" dataContainer="subjectsDc">
+                    <columns>
+                        <column id="name"/>
+                    </columns>
+                </table>
+            </vbox>
+        </hbox>
+    </layout>
+</window>
